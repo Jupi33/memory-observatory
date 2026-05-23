@@ -29,7 +29,7 @@ This roadmap documents the intended technical evolution of Memory Observatory. T
 ## Future Work
 
 - Add optional 3D navigation mode for changing constellation perspective without losing the current visual identity.
-- Add automated UI smoke tests for the entrance, editor, memory detail, and view switching flows.
+- Expand automated UI tests beyond the current smoke path into editor mutation, memory detail, and mobile-specific flows.
 - Add deeper mobile performance profiling for lower-end devices.
 - Add accessibility passes for keyboard flow, focus management, reduced motion, and color contrast.
 - Add a private deployment guide for Supabase-backed production environments.

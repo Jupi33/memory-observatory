@@ -34,10 +34,19 @@ The experience is designed for mobile-first sharing by QR or direct link, while 
 - Mobile safeguards for reduced rendering cost, no horizontal overflow, and touch navigation
 - Public-safe seeded data and placeholder media for recruiter review
 
+## Engineering Highlights
+
+- Deterministic constellation engine: memory position is derived from date precision, era, category, mood, and stable hashing, then relaxed with a deterministic anti-overlap pass.
+- WebGL and DOM separation: `AtlasView` owns the React Three Fiber scene, while `CosmicObservatory` coordinates state, overlays, editor entry points, and audio cues.
+- Persistence boundary: `mediaRepository` exposes one client API over Supabase and localStorage, so the static GitHub Pages demo works without backend credentials.
+- Public/private data split: the repository ships sanitized media and demo records; production data lives outside Git in Supabase or another configured backend.
+- Quality gates: formatting, linting, unit tests, TypeScript build, and GitHub Pages deployment run in CI.
+
 ## Project History
 
 - [Changelog](CHANGELOG.md)
 - [Roadmap](ROADMAP.md)
+- [Security notes](SECURITY.md)
 
 ## Architecture
 
@@ -75,8 +84,12 @@ Open `http://127.0.0.1:5173/`.
 Useful checks:
 
 ```bash
+npm run ci
 npm run lint
 npm run format:check
+npm run test:unit
+npm run test:e2e
+npm run test:coverage
 npm run build
 ```
 

@@ -1,3 +1,8 @@
+-- Demo Supabase schema for Memory Observatory.
+-- This intentionally supports a no-login, gift-site editing flow.
+-- For sensitive production data, start from supabase-schema.production-template.sql
+-- and require authenticated editor access before allowing writes.
+
 create table if not exists public.memories (
   id text primary key,
   title text not null,

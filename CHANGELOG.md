@@ -25,3 +25,7 @@ This public repository is a sanitized snapshot prepared from a private/local pro
 - Added ESLint, Prettier, TypeScript build checks, Git attributes, and production build configuration.
 - Added a professional README with architecture notes, setup instructions, and live demo link.
 - Added npm audit validation and stabilized deployment dependencies for GitHub Actions.
+- Added Vitest unit coverage for constellation layout, date parsing, ordering, and local repository behavior.
+- Added Playwright smoke coverage for the entrance and primary observatory views.
+- Added security documentation, a stricter production Supabase schema template, and an MIT license.
+- Split the observatory UI into focused modules for the atlas, trajectory, letter, HUD, memory scene, and editor controls.
