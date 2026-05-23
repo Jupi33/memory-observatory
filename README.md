@@ -10,6 +10,8 @@ Memory Observatory is an interactive, full-screen archive for personal media col
 
 The public repository ships with sanitized sample media and neutral demo records. Production deployments can connect to Supabase so uploaded memories, descriptions, responses, and media files persist across devices without storing private content in Git.
 
+This repository is a public demo snapshot prepared from a private/local project. It preserves the implementation and architecture while replacing private content with neutral sample assets.
+
 The experience is designed for mobile-first sharing by QR or direct link, while still supporting desktop navigation, keyboard zoom, editor flows, and a richer cinematic presentation.
 
 ## Tech Stack
@@ -31,6 +33,11 @@ The experience is designed for mobile-first sharing by QR or direct link, while 
 - Supabase-backed persistence with localStorage fallback for development
 - Mobile safeguards for reduced rendering cost, no horizontal overflow, and touch navigation
 - Public-safe seeded data and placeholder media for recruiter review
+
+## Project History
+
+- [Changelog](CHANGELOG.md)
+- [Roadmap](ROADMAP.md)
 
 ## Architecture
 
