@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+.next/
+.vercel/
+.local/
+output/
+.playwright-cli/
+public/media/audio/
+public/media/intro/
+public/media/memories/

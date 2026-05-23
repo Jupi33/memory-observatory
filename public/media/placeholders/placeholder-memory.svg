@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-label="Placeholder de recuerdo">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#07040a"/>
+      <stop offset="0.5" stop-color="#17081f"/>
+      <stop offset="1" stop-color="#05060a"/>
+    </linearGradient>
+    <radialGradient id="light" cx="42%" cy="34%" r="70%">
+      <stop offset="0" stop-color="#f7efe5" stop-opacity=".42"/>
+      <stop offset=".34" stop-color="#8f5cff" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#02030a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="wine" cx="18%" cy="80%" r="55%">
+      <stop offset="0" stop-color="#7d1236" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#02030a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 .14"/>
+      </feComponentTransfer>
+      <feBlend mode="screen" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#bg)"/>
+  <rect width="1200" height="1500" fill="url(#light)"/>
+  <rect width="1200" height="1500" fill="url(#wine)"/>
+  <g filter="url(#noise)">
+    <rect width="1200" height="1500" fill="#ffffff" opacity=".08"/>
+  </g>
+  <g fill="none" stroke="#fff8ef" stroke-opacity=".18">
+    <rect x="92" y="92" width="1016" height="1316" rx="26"/>
+    <path d="M168 1070 C340 890 492 1008 610 812 C728 616 876 714 1034 510"/>
+    <circle cx="866" cy="422" r="90"/>
+    <path d="M270 330 L930 330 M600 230 L600 430" stroke-opacity=".08"/>
+  </g>
+  <g fill="#fff8ef" font-family="Consolas, monospace" text-anchor="middle" letter-spacing="8">
+    <text x="600" y="1230" font-size="20" opacity=".42">DEMO MEDIA</text>
+  </g>
+</svg>

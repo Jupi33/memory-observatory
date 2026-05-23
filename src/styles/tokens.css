@@ -1,0 +1,204 @@
+:root {
+  --ink: #f7efe5;
+  --ink-soft: rgba(247, 239, 229, 0.72);
+  --ink-dim: rgba(247, 239, 229, 0.46);
+  --black: #050306;
+  --black-2: #0b0710;
+  --violet: #8f5cff;
+  --violet-deep: #2b123f;
+  --wine: #7d1236;
+  --wine-soft: #a83d59;
+  --paper: #f7efe5;
+  --line: rgba(247, 239, 229, 0.15);
+  --panel: rgba(12, 8, 16, 0.72);
+  --serif: 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+  --text-serif: 'Cormorant Garamond', Georgia, serif;
+  --mono: 'IBM Plex Mono', Consolas, monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--ink);
+  background: var(--black);
+  font-family: var(--text-serif);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--black);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100svh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(143, 92, 255, 0.62) rgba(247, 239, 229, 0.055);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, rgba(247, 239, 229, 0.035), rgba(143, 92, 255, 0.045));
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 3px solid rgba(5, 3, 6, 0.82);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(247, 239, 229, 0.72), rgba(143, 92, 255, 0.74));
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+#root,
+.app-shell {
+  min-height: 100svh;
+}
+
+.paper-noise,
+.ritual-vignette {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+}
+
+.paper-noise {
+  z-index: 1;
+  opacity: 0.14;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(247, 239, 229, 0.16) 0 1px, transparent 1px),
+    radial-gradient(circle at 90% 70%, rgba(247, 239, 229, 0.12) 0 1px, transparent 1px);
+  background-size:
+    4px 4px,
+    7px 7px;
+  mix-blend-mode: screen;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+  color: var(--wine-soft);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.top-controls {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 90;
+}
+
+.top-controls button,
+.editor-seal {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(5, 3, 6, 0.58);
+  color: var(--ink);
+  cursor: pointer;
+  backdrop-filter: blur(16px);
+}
+
+.editor-seal {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 90;
+  color: var(--violet);
+}
+
+.heart-float-field {
+  pointer-events: none;
+  position: fixed;
+  left: 39px;
+  bottom: 39px;
+  z-index: 95;
+}
+
+.heart-float,
+.heart-float-static {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  color: var(--violet);
+  font-family: var(--serif);
+  font-size: var(--heart-size);
+  line-height: 1;
+  text-shadow:
+    0 0 12px rgba(143, 92, 255, 0.62),
+    0 0 28px rgba(216, 77, 112, 0.22);
+}
+
+.heart-float {
+  animation: heartFloat 2.2s var(--heart-delay) var(--ease-out) both;
+}
+
+.heart-float-static {
+  opacity: 0;
+}
+
+.editor-seal:hover .heart-float-static,
+.editor-seal:focus .heart-float-static,
+.editor-seal:active .heart-float-static {
+  animation: heartFloat 2.2s var(--heart-delay) var(--ease-out) both;
+}
+
+@keyframes heartFloat {
+  0% {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translate3d(0, 0, 0) scale(0.72) rotate(-8deg);
+  }
+  18% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translate3d(var(--heart-x), -190px, 0) scale(1.22) rotate(16deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
