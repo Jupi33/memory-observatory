@@ -1,15 +1,27 @@
 {
   "name": "memory-observatory",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "A cinematic React and WebGL memory archive rendered as an interactive constellation.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jupi33/memory-observatory.git"
+  },
+  "homepage": "https://jupi33.github.io/memory-observatory/",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "ci": "npm run format:check && npm run lint && npm run test:unit && npm run build",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.11",
@@ -34,19 +46,23 @@
     "@emnapi/core": "^1.10.0",
     "@emnapi/runtime": "^1.10.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.60.0",
     "@types/howler": "^2.2.12",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/coverage-v8": "^4.1.7",
     "eslint": "^10.2.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
+    "jsdom": "^29.1.1",
     "prettier": "^3.8.3",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",
-    "vite": "^8.0.10"
+    "vite": "^8.0.10",
+    "vitest": "^4.1.7"
   }
 }

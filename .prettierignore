@@ -6,6 +6,9 @@ build/
 .local/
 output/
 .playwright-cli/
+test-results/
+playwright-report/
+coverage/
 public/media/audio/
 public/media/intro/
 public/media/memories/

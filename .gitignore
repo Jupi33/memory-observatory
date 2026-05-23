@@ -17,6 +17,9 @@ build/
 *.local
 .playwright-cli/
 output/
+test-results/
+playwright-report/
+coverage/
 
 # Editor directories and files
 .vscode/*

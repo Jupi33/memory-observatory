@@ -30,8 +30,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check formatting
+        run: npm run format:check
+
       - name: Lint
         run: npm run lint
+
+      - name: Unit tests
+        run: npm run test:unit
 
       - name: Build static demo
         run: GITHUB_PAGES=true npm run build
