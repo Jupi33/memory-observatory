@@ -36,14 +36,14 @@ The experience is designed for mobile-first sharing by QR or direct link, while 
 
 ```mermaid
 flowchart LR
-  "React App" --> "Entrance"
-  "React App" --> "Cosmic Observatory"
-  "Cosmic Observatory" --> "Constellation Engine"
-  "Cosmic Observatory" --> "Memory Editor"
-  "Memory Editor" --> "Media Repository"
-  "Media Repository" --> "Supabase"
-  "Media Repository" --> "localStorage fallback"
-  "Audio Director" --> "Howler cues"
+  app["React App"] --> entrance["Entrance"]
+  app --> observatory["Cosmic Observatory"]
+  observatory --> engine["Constellation Engine"]
+  observatory --> editor["Memory Editor"]
+  editor --> repository["Media Repository"]
+  repository --> supabase["Supabase"]
+  repository --> fallback["localStorage fallback"]
+  audio["Audio Director"] --> cues["Howler cues"]
 ```
 
 The app is organized around a small set of runtime systems:
@@ -57,7 +57,7 @@ The app is organized around a small set of runtime systems:
 ## Getting Started
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/Jupi33/memory-observatory.git
 cd memory-observatory
 npm install
 npm run dev
@@ -87,6 +87,6 @@ For Vercel keepalive, configure `CRON_SECRET` in the Vercel project environment.
 
 ## Live Demo
 
-Add the public deployment URL here after publishing a sanitized demo environment.
+[https://jupi33.github.io/memory-observatory/](https://jupi33.github.io/memory-observatory/)
 
-The public repository uses sample data. Any production deployment should load private memories from Supabase or another backend configured outside the repo.
+The public demo uses sample data and sanitized placeholder media. Production deployments should load private memories from Supabase or another backend configured outside the repo.
