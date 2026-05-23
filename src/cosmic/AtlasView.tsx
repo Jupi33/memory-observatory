@@ -12,6 +12,7 @@ import {
   type MemoryNode,
   type Vec3,
 } from './constellationEngine'
+import { OrbitLayer } from './OrbitLayer'
 const toneColors = {
   ivory: '#f7efe5',
   violet: '#8f5cff',
@@ -149,36 +150,6 @@ function SceneCamera({
   })
 
   return null
-}
-
-function OrbitRings({ view }: { view: CosmicView }) {
-  const rings = useMemo(
-    () =>
-      [1.35, 2.15, 3.02].map((radius, ringIndex) =>
-        Array.from({ length: 96 }, (_, index) => {
-          const angle = (index / 95) * Math.PI * 2
-          return [Math.cos(angle) * radius, Math.sin(angle) * radius * 0.66, -0.42 - ringIndex * 0.04] as Vec3
-        }),
-      ),
-    [],
-  )
-
-  if (view !== 'atlas') return null
-
-  return (
-    <>
-      {rings.map((points, index) => (
-        <Line
-          key={index}
-          points={points}
-          color={index === 1 ? '#8f5cff' : '#f7efe5'}
-          lineWidth={index === 1 ? 0.92 : 0.82}
-          transparent
-          opacity={index === 1 ? 0.13 : 0.075}
-        />
-      ))}
-    </>
-  )
 }
 
 function ConstellationThread({
@@ -617,7 +588,7 @@ export function AtlasView({
         opacity={mobileAtmosphere ? 0.22 : 0.34}
         color="#8f5cff"
       />
-      <OrbitRings view={view} />
+      <OrbitLayer view={view} />
       {map.links.map((link) => (
         <ConstellationThread
           key={link.id}

@@ -4,6 +4,8 @@ A cinematic React memory archive that turns dated media entries into an interact
 
 ![Demo preview](public/media/demo/observatory-preview.png)
 
+[Watch a short demo video](public/media/demo/observatory-demo.webm)
+
 ## What It Does
 
 Memory Observatory is an interactive, full-screen archive for personal media collections. Instead of showing a conventional grid of photos, it maps memories into a living constellation where dates, categories, emotional tone, and manual links determine the position and relationships between stars.
