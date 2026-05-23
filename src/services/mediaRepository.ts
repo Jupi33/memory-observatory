@@ -8,7 +8,7 @@ const LOCAL_LIBRARY_VERSION_KEY = 'memory-observatory.memories.libraryVersion.v1
 const LOCAL_LIBRARY_VERSION = 'public-demo-2026-05-23'
 const templateMemoryIds = new Set(['memory-origin', 'memory-daily', 'memory-capsule'])
 const defaultMemoryIds = new Set(defaultMemories.map((memory) => memory.id))
-const testMemoryTitles = new Set([
+const demoCleanupMemoryTitles = new Set([
   'Primer recuerdo real',
   'Un recuerdo de prueba',
   'Ese dia',
@@ -30,7 +30,7 @@ const suspiciousFragments = [
 ]
 
 const isTestMemory = (memory: Memory) =>
-  testMemoryTitles.has(memory.title) ||
+  demoCleanupMemoryTitles.has(memory.title) ||
   suspiciousFragments.some((fragment) =>
     `${memory.title} ${memory.description} ${memory.place}`.toLowerCase().includes(fragment),
   )

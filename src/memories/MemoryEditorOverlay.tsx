@@ -1,177 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { FormEvent } from 'react'
 import { ImagePlus, Link2, Save, X } from 'lucide-react'
-import { formatFlexibleDate } from '../cosmic/constellationEngine'
 import { useExperienceStore } from '../store/useExperienceStore'
 import type { ChapterId, Memory, MemoryCategory, RelationshipEra } from '../types/story'
-
-const categories: { id: MemoryCategory; label: string }[] = [
-  { id: 'sacred', label: 'Especial' },
-  { id: 'daily', label: 'Diario' },
-]
-
-const eras: { id: RelationshipEra; label: string }[] = [
-  { id: 'origin', label: 'Origen' },
-  { id: 'becoming', label: 'Convergence' },
-  { id: 'present', label: 'Living archive' },
-]
-
-const moods = [
-  { color: '#8f5cff', label: 'Nostalgia' },
-  { color: '#d84d70', label: 'Puro amor' },
-  { color: '#f2c66d', label: 'Diversión' },
-  { color: '#9b9aa5', label: '¿Apagado?!' },
-]
-
-interface DateParts {
-  day: string
-  month: string
-  year: string
-}
-
-const emptyDateParts: DateParts = { day: '', month: '', year: '' }
-
-const onlyDigits = (value: string, maxLength: number) => value.replace(/\D/g, '').slice(0, maxLength)
-
-const normalizeYear = (year: string) => {
-  if (!year) return ''
-  return year.length === 2 ? `20${year}` : year.padStart(4, '0')
-}
-
-const composeFlexibleDate = ({ day, month, year }: DateParts) => {
-  if (!year) return ''
-  const normalizedYear = normalizeYear(year)
-  if (day && month) return `${normalizedYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-  if (month) return `${normalizedYear}-${month.padStart(2, '0')}`
-  return normalizedYear
-}
-
-const splitFlexibleDate = (value?: string): DateParts => {
-  const raw = String(value ?? '').trim()
-  const slash = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/)
-  if (slash) return { day: slash[1], month: slash[2], year: slash[3] }
-  const day = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/)
-  if (day) return { day: day[3], month: day[2], year: day[1] }
-  const month = raw.match(/^(\d{4})-(\d{1,2})$/)
-  if (month) return { day: '', month: month[2], year: month[1] }
-  const year = raw.match(/^(\d{2}|\d{4})$/)
-  if (year) return { day: '', month: '', year: year[1] }
-  return emptyDateParts
-}
-
-function FlexibleDateFields({
-  value,
-  onChange,
-  required,
-}: {
-  value: string
-  onChange: (value: string) => void
-  required?: boolean
-}) {
-  const [parts, setParts] = useState<DateParts>(() => splitFlexibleDate(value))
-
-  const update = (patch: Partial<DateParts>) => {
-    const next = { ...parts, ...patch }
-    setParts(next)
-    onChange(composeFlexibleDate(next))
-  }
-
-  return (
-    <div className="memory-editor__date" aria-label="Fecha flexible">
-      <label>
-        Día
-        <input
-          inputMode="numeric"
-          value={parts.day}
-          onChange={(event) => update({ day: onlyDigits(event.target.value, 2) })}
-          placeholder="30"
-        />
-      </label>
-      <span>/</span>
-      <label>
-        Mes
-        <input
-          inputMode="numeric"
-          value={parts.month}
-          onChange={(event) => update({ month: onlyDigits(event.target.value, 2) })}
-          placeholder="04"
-        />
-      </label>
-      <span>/</span>
-      <label>
-        Año
-        <input
-          inputMode="numeric"
-          value={parts.year}
-          onChange={(event) => update({ year: onlyDigits(event.target.value, 4) })}
-          placeholder="22"
-          required={required}
-        />
-      </label>
-    </div>
-  )
-}
-
-function MemoryLinkPickerDialog({
-  memories,
-  selectedId,
-  onChoose,
-  onClose,
-}: {
-  memories: Memory[]
-  selectedId?: string
-  onChoose: (memoryId: string) => void
-  onClose: () => void
-}) {
-  return (
-    <div
-      className="memory-link-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Unir recuerdo"
-      onClick={onClose}
-    >
-      <div className="memory-link-modal__panel" onClick={(event) => event.stopPropagation()}>
-        <header>
-          <div>
-            <p>trazar lazo</p>
-            <h3>Unir con otro recuerdo</h3>
-          </div>
-          <button type="button" onClick={onClose} aria-label="Cerrar selector">
-            <X size={17} />
-          </button>
-        </header>
-        <button
-          type="button"
-          className={`memory-link-modal__clear ${!selectedId ? 'is-selected' : ''}`}
-          onClick={() => onChoose('')}
-        >
-          sin unión directa
-        </button>
-        <div className="memory-link-modal__grid">
-          {memories.map((memory) => (
-            <button
-              type="button"
-              key={memory.id}
-              className={selectedId === memory.id ? 'is-selected' : ''}
-              onClick={() => onChoose(memory.id)}
-            >
-              <span className="memory-link-modal__thumb">
-                {memory.mediaType === 'video' ? (
-                  <video src={memory.mediaUrl} muted playsInline />
-                ) : (
-                  <img src={memory.mediaUrl} alt="" />
-                )}
-              </span>
-              <small>{formatFlexibleDate(memory.date)}</small>
-              <strong>{memory.title}</strong>
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
+import { FlexibleDateFields, MemoryLinkPickerDialog } from './MemoryEditorControls'
+import { memoryCategories, memoryMoods, relationshipEras, splitFlexibleDate } from './memoryEditorModel'
 
 export function MemoryEditorOverlay() {
   const editMode = useExperienceStore((state) => state.editMode)
@@ -324,7 +157,7 @@ export function MemoryEditorOverlay() {
                   value={draft.category}
                   onChange={(event) => setDraft({ ...draft, category: event.target.value as MemoryCategory })}
                 >
-                  {categories.map((category) => (
+                  {memoryCategories.map((category) => (
                     <option value={category.id} key={category.id}>
                       {category.label}
                     </option>
@@ -337,7 +170,7 @@ export function MemoryEditorOverlay() {
                   value={draft.era}
                   onChange={(event) => setDraft({ ...draft, era: event.target.value as RelationshipEra })}
                 >
-                  {eras.map((era) => (
+                  {relationshipEras.map((era) => (
                     <option value={era.id} key={era.id}>
                       {era.label}
                     </option>
@@ -347,7 +180,7 @@ export function MemoryEditorOverlay() {
             </div>
             <fieldset className="memory-editor__moods">
               <legend>Emoción</legend>
-              {moods.map((mood) => (
+              {memoryMoods.map((mood) => (
                 <button
                   type="button"
                   key={mood.color}
@@ -425,7 +258,7 @@ export function MemoryEditorOverlay() {
                     void updateSelected({ category, importance: category === 'sacred' ? 3 : 1 })
                   }}
                 >
-                  {categories.map((category) => (
+                  {memoryCategories.map((category) => (
                     <option value={category.id} key={category.id}>
                       {category.label}
                     </option>
@@ -438,7 +271,7 @@ export function MemoryEditorOverlay() {
                   value={selected.era}
                   onChange={(event) => void updateSelected({ era: event.target.value as RelationshipEra })}
                 >
-                  {eras.map((era) => (
+                  {relationshipEras.map((era) => (
                     <option value={era.id} key={era.id}>
                       {era.label}
                     </option>
@@ -448,7 +281,7 @@ export function MemoryEditorOverlay() {
             </div>
             <fieldset className="memory-editor__moods">
               <legend>Emoción</legend>
-              {moods.map((mood) => (
+              {memoryMoods.map((mood) => (
                 <button
                   type="button"
                   key={mood.color}
