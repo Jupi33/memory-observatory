@@ -2,7 +2,7 @@
 
 A cinematic React memory archive that turns dated media entries into an interactive constellation.
 
-![Demo preview](public/media/intro/intro-01.jpg)
+![Demo preview](public/media/demo/observatory-preview.png)
 
 ## What It Does
 
