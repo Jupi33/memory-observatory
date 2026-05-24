@@ -1,12 +1,28 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { visualizer } from 'rollup-plugin-visualizer'
+import type { PluginOption } from 'vite'
 
 // https://vite.dev/config/
 const isGitHubPages = process.env.GITHUB_PAGES === 'true'
+const shouldAnalyze = process.env.ANALYZE === 'true'
+
+const plugins: PluginOption[] = [react()]
+
+if (shouldAnalyze) {
+  plugins.push(
+    visualizer({
+      brotliSize: true,
+      filename: 'dist/stats.html',
+      gzipSize: true,
+      template: 'treemap',
+    }) as PluginOption,
+  )
+}
 
 export default defineConfig({
   base: isGitHubPages ? '/memory-observatory/' : '/',
-  plugins: [react()],
+  plugins,
   build: {
     // The observatory intentionally ships a sizeable isolated WebGL vendor chunk.
     chunkSizeWarningLimit: 1200,
