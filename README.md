@@ -21,7 +21,7 @@ Designed as a frontend-intensive portfolio project focused on cinematic UI, dete
 ## Tech Stack
 
 - React 19, Vite, TypeScript
-- React Three Fiber, Three.js, Drei, react-postprocessing
+- React Three Fiber, Three.js, Drei
 - Zustand for client state
 - GSAP and Motion for cinematic transitions
 - Howler.js for audio playback and fades
@@ -44,13 +44,14 @@ Designed as a frontend-intensive portfolio project focused on cinematic UI, dete
 - WebGL and DOM separation: `AtlasView` owns the React Three Fiber scene, while `CosmicObservatory` coordinates state, overlays, editor entry points, and audio cues.
 - Persistence boundary: `mediaRepository` exposes one client API over Supabase and localStorage, so the static GitHub Pages demo works without backend credentials.
 - Public/private data split: the repository ships sanitized media and demo records; production data lives outside Git in Supabase or another configured backend.
-- Quality gates: formatting, linting, unit tests, desktop/mobile Playwright smoke tests, accessibility checks, bundle analysis, TypeScript build, and GitHub Pages deployment run in CI.
+- Quality gates: formatting, linting, unit tests, desktop/mobile Playwright smoke tests, keyboard accessibility flows, Lighthouse budgets, bundle analysis, TypeScript build, and GitHub Pages deployment run in CI.
 
 ## Project History
 
 - [Changelog](CHANGELOG.md)
 - [Roadmap](ROADMAP.md)
 - [Security notes](SECURITY.md)
+- [Frontend architecture](docs/frontend-architecture.md)
 - [Performance budget](docs/performance-budget.md)
 
 ## Architecture
@@ -105,9 +106,11 @@ npm run format:check
 npm run test:unit
 npm run test:e2e
 npm run test:e2e:mobile
+npm run test:e2e:keyboard
 npm run test:a11y
 npm run test:coverage
 npm run analyze
+npm run lighthouse
 npm run build
 ```
 
