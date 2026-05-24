@@ -28,7 +28,7 @@ test('opens the observatory and switches primary views', async ({ page }, testIn
 
   await page.getByRole('button', { name: 'Atlas' }).click()
   await page.getByRole('button', { name: 'Agregar recuerdo' }).click()
-  await expect(page.getByRole('complementary', { name: 'Editor de recuerdos' })).toBeVisible()
+  await expect(page.getByRole('dialog', { name: /agregar escena/i })).toBeVisible()
   await page.screenshot({ path: testInfo.outputPath('05-editor.png') })
 
   expect(consoleErrors).toEqual([])

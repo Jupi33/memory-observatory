@@ -31,6 +31,6 @@ test('observatory atlas and editor have no severe automated accessibility violat
   await expectNoSevereA11yViolations(page)
 
   await page.getByRole('button', { name: 'Agregar recuerdo' }).click()
-  await expect(page.getByRole('complementary', { name: 'Editor de recuerdos' })).toBeVisible()
+  await expect(page.getByRole('dialog', { name: /agregar escena/i })).toBeVisible()
   await expectNoSevereA11yViolations(page)
 })

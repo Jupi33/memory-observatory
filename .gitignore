@@ -16,9 +16,12 @@ build/
 .local/
 *.local
 .playwright-cli/
+.lhci-chrome-profile/
+.lighthouseci/
 output/
 test-results/
 playwright-report/
+lhci-report/
 coverage/
 
 # Editor directories and files

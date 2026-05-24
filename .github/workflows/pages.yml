@@ -48,11 +48,40 @@ jobs:
       - name: Desktop smoke test
         run: npm run test:e2e
 
+      - name: Upload desktop smoke screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-smoke-screenshots
+          path: test-results/**/*.png
+          if-no-files-found: ignore
+
       - name: Mobile smoke test
         run: npm run test:e2e:mobile
 
+      - name: Upload mobile smoke screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-smoke-screenshots
+          path: test-results/**/*.png
+          if-no-files-found: ignore
+
+      - name: Keyboard accessibility flow
+        run: npm run test:e2e:keyboard
+
       - name: Accessibility check
         run: npm run test:a11y
+
+      - name: Lighthouse budgets
+        run: npm run lighthouse
+
+      - name: Upload Lighthouse report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: lhci-report
+          if-no-files-found: error
 
       - name: Bundle analysis
         run: npm run analyze
