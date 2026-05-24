@@ -4,7 +4,7 @@ A cinematic React memory archive that turns dated media entries into an interact
 
 ![Demo preview](public/media/demo/observatory-preview.png)
 
-[Watch a short demo video](public/media/demo/observatory-demo.webm)
+![Demo walkthrough](public/media/demo/observatory-demo.gif)
 
 ## What It Does
 
