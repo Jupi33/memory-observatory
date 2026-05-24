@@ -16,6 +16,8 @@ This repository is a public demo snapshot prepared from a private/local project.
 
 The experience is designed for mobile-first sharing by QR or direct link, while still supporting desktop navigation, keyboard zoom, editor flows, and a richer cinematic presentation.
 
+Designed as a frontend-intensive portfolio project focused on cinematic UI, deterministic layout, and production-style quality gates.
+
 ## Tech Stack
 
 - React 19, Vite, TypeScript
@@ -42,13 +44,14 @@ The experience is designed for mobile-first sharing by QR or direct link, while 
 - WebGL and DOM separation: `AtlasView` owns the React Three Fiber scene, while `CosmicObservatory` coordinates state, overlays, editor entry points, and audio cues.
 - Persistence boundary: `mediaRepository` exposes one client API over Supabase and localStorage, so the static GitHub Pages demo works without backend credentials.
 - Public/private data split: the repository ships sanitized media and demo records; production data lives outside Git in Supabase or another configured backend.
-- Quality gates: formatting, linting, unit tests, TypeScript build, and GitHub Pages deployment run in CI.
+- Quality gates: formatting, linting, unit tests, desktop/mobile Playwright smoke tests, accessibility checks, bundle analysis, TypeScript build, and GitHub Pages deployment run in CI.
 
 ## Project History
 
 - [Changelog](CHANGELOG.md)
 - [Roadmap](ROADMAP.md)
 - [Security notes](SECURITY.md)
+- [Performance budget](docs/performance-budget.md)
 
 ## Architecture
 
@@ -72,6 +75,16 @@ The app is organized around a small set of runtime systems:
 - `src/services/` abstracts Supabase persistence, media uploads, and local fallback behavior.
 - `api/keepalive.ts` is a Vercel function used to keep the Supabase project active.
 
+## Technical Trade-Offs
+
+The observatory uses WebGL for the constellation because stars, camera movement, glow, and future 3D navigation benefit from a retained scene graph. The text-heavy surfaces remain DOM-based because forms, modals, keyboard controls, and screen-reader semantics are easier to maintain outside a canvas.
+
+The layout engine is deterministic instead of physics-driven. That makes the public demo stable for reloads, tests, screenshots, and code review, while still allowing an anti-overlap pass to keep dense clusters readable.
+
+Persistence is intentionally abstracted behind a media repository. A production deployment can use Supabase for database rows and storage objects, while the public GitHub Pages demo falls back to localStorage and sanitized sample media with no backend credentials.
+
+Private media and real project notes are excluded from the public repository. The live demo is documented as a sanitized snapshot, and production secrets are expected to live in environment variables rather than Git.
+
 ## Getting Started
 
 ```bash
@@ -91,7 +104,10 @@ npm run lint
 npm run format:check
 npm run test:unit
 npm run test:e2e
+npm run test:e2e:mobile
+npm run test:a11y
 npm run test:coverage
+npm run analyze
 npm run build
 ```
 
