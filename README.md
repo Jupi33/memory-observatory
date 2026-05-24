@@ -2,6 +2,8 @@
 
 A cinematic React memory archive that turns dated media entries into an interactive constellation.
 
+[Live demo](https://jupi33.github.io/memory-observatory/) · [Architecture](docs/frontend-architecture.md) · [Security](SECURITY.md)
+
 ![Demo preview](public/media/demo/observatory-preview.png)
 
 ![Demo walkthrough](public/media/demo/observatory-demo.gif)
@@ -10,9 +12,9 @@ A cinematic React memory archive that turns dated media entries into an interact
 
 Memory Observatory is an interactive, full-screen archive for personal media collections. Instead of showing a conventional grid of photos, it maps memories into a living constellation where dates, categories, emotional tone, and manual links determine the position and relationships between stars.
 
-The public repository ships with sanitized sample media and neutral demo records. Production deployments can connect to Supabase so uploaded memories, descriptions, responses, and media files persist across devices without storing private content in Git.
+The public repository ships with sanitized sample media and neutral demo records. A private deployment can connect to Supabase through the included Vercel API layer so uploaded memories, descriptions, responses, and media files persist across devices without storing private content in Git.
 
-This repository is a public demo snapshot prepared from a private/local project. It preserves the implementation and architecture while replacing private content with neutral sample assets.
+This repository is the sanitized public release of a project first developed privately. It keeps the implementation and architecture visible while replacing private content with neutral sample assets.
 
 The experience is designed for mobile-first sharing by QR or direct link, while still supporting desktop navigation, keyboard zoom, editor flows, and a richer cinematic presentation.
 
@@ -49,7 +51,7 @@ Designed as a frontend-intensive portfolio project focused on cinematic UI, dete
 - Public/private data split: the repository ships sanitized media and demo records; production data lives outside Git in Supabase or another configured backend.
 - Quality gates: formatting, linting, unit tests, desktop/mobile Playwright smoke tests, keyboard accessibility flows, Lighthouse budgets, bundle analysis, TypeScript build, and GitHub Pages deployment run in CI.
 
-## Project History
+## Project Notes
 
 - [Changelog](CHANGELOG.md)
 - [Roadmap](ROADMAP.md)
@@ -91,7 +93,7 @@ The layout engine is deterministic instead of physics-driven. That makes the pub
 
 Persistence is intentionally abstracted behind a media repository. The static GitHub Pages demo falls back to localStorage and sanitized sample media with no backend credentials. A production Vercel deployment uses `/api` routes, signed editor sessions, Supabase RLS, service-role writes on the server, and signed upload URLs for media.
 
-Private media and real project notes are excluded from the public repository. The live demo is documented as a sanitized snapshot, and production secrets are expected to live in environment variables rather than Git.
+Private media and real project notes are excluded from the public repository. Production secrets are expected to live in environment variables rather than Git.
 
 ## Getting Started
 
@@ -141,4 +143,4 @@ CRON_SECRET=
 
 [https://jupi33.github.io/memory-observatory/](https://jupi33.github.io/memory-observatory/)
 
-The public demo uses sample data and sanitized placeholder media. Production deployments should load private memories from Supabase or another backend configured outside the repo.
+The public demo uses sample data and sanitized placeholder media. Private deployments should load real memories from Supabase or another backend configured outside the repo.

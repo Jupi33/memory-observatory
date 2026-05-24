@@ -1,27 +1,27 @@
 # Roadmap
 
-This roadmap documents the intended technical evolution of Memory Observatory. The public repository starts at a sanitized demo snapshot, while private deployments can connect real data through Supabase.
+This roadmap documents the technical evolution of Memory Observatory. The public repository starts with sanitized demo data, while private deployments can connect real data through Supabase.
 
-## Phase 1: Cinematic Prototype
+## Milestone 1: Cinematic Prototype
 
 - Establish the ritual-style entrance and intro montage.
 - Define the visual language: editorial typography, dark cinematic canvas, soft violet lighting, and restrained audio.
 - Replace generic page sections with an immersive, full-screen experience.
 
-## Phase 2: Constellation Interaction Model
+## Milestone 2: Constellation Interaction Model
 
 - Map memories into deterministic star positions based on date, era, mood, and manual relationships.
 - Add atlas navigation, trajectory view, letter view, star selection, keyboard zoom, and touch-safe mobile behavior.
 - Improve visual density with anti-overlap layout and cleaner constellation links.
 
-## Phase 3: Persistence And Editor Workflows
+## Milestone 3: Persistence And Editor Workflows
 
 - Connect memories, responses, and media uploads to Supabase through Vercel API routes.
 - Keep localStorage fallback behavior for development and public static demos.
 - Protect create, edit, delete, link, upload, and response flows behind a signed editor session.
 - Keep the Supabase service role key server-side and record editor audit events.
 
-## Phase 4: Public Demo Hardening
+## Milestone 4: Public Demo Hardening
 
 - Sanitize private assets, copy, and local configuration before publishing.
 - Add linting, formatting, build checks, audit checks, and deployment automation.

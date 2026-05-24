@@ -20,7 +20,7 @@ Do not commit `.env.local`, Vercel production env files, service role keys, edit
 
 ## Demo Policies
 
-`supabase-schema.sql` documents the permissive demo schema used by the original gift-site workflow. It allows public reads and public writes because that workflow was designed around a private link.
+`supabase-schema.sql` documents the permissive demo schema used by the original private-link workflow. It allows public reads and public writes because that mode was designed for controlled demos.
 
 That tradeoff is useful only for local experimentation and private demos. It is not the production security model for sensitive data.
 
