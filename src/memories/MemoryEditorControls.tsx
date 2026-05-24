@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { X } from 'lucide-react'
 import { formatFlexibleDate } from '../cosmic/constellationEngine'
+import { useModalFocus } from '../hooks/useModalFocus'
 import type { Memory } from '../types/story'
 import { composeFlexibleDate, onlyDigits, splitFlexibleDate, type DateParts } from './memoryEditorModel'
 
@@ -68,19 +69,27 @@ export function MemoryLinkPickerDialog({
   onChoose,
   onClose,
 }: MemoryLinkPickerDialogProps) {
+  const panelRef = useRef<HTMLDivElement | null>(null)
+  useModalFocus({ containerRef: panelRef, onClose })
+
   return (
     <div
       className="memory-link-modal"
       role="dialog"
       aria-modal="true"
-      aria-label="Unir recuerdo"
+      aria-labelledby="memory-link-title"
       onClick={onClose}
     >
-      <div className="memory-link-modal__panel" onClick={(event) => event.stopPropagation()}>
+      <div
+        className="memory-link-modal__panel"
+        ref={panelRef}
+        tabIndex={-1}
+        onClick={(event) => event.stopPropagation()}
+      >
         <header>
           <div>
             <p>trazar lazo</p>
-            <h3>Unir con otro recuerdo</h3>
+            <h3 id="memory-link-title">Unir con otro recuerdo</h3>
           </div>
           <button type="button" onClick={onClose} aria-label="Cerrar selector">
             <X size={17} />

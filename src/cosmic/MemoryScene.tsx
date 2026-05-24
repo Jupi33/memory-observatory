@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Pencil, Trash2, X } from 'lucide-react'
+import { useModalFocus } from '../hooks/useModalFocus'
 import type { Memory } from '../types/story'
 import { formatFlexibleDate } from './constellationEngine'
 
@@ -11,8 +12,11 @@ interface MemorySceneProps {
 }
 
 export function MemoryScene({ memory, onClose, onEdit, onDelete }: MemorySceneProps) {
+  const dialogRef = useRef<HTMLElement | null>(null)
   const [readyState, setReadyState] = useState({ memoryId: '', ready: false })
   const ready = readyState.memoryId === memory.id && readyState.ready
+
+  useModalFocus({ containerRef: dialogRef, onClose })
 
   useEffect(() => {
     let timeout: number | null = null
@@ -27,7 +31,14 @@ export function MemoryScene({ memory, onClose, onEdit, onDelete }: MemoryScenePr
   }, [memory.id])
 
   return (
-    <aside className={`cosmic-memory${ready ? ' is-ready' : ''}`} aria-label="Recuerdo abierto">
+    <aside
+      ref={dialogRef}
+      className={`cosmic-memory${ready ? ' is-ready' : ''}`}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cosmic-memory-title"
+      tabIndex={-1}
+    >
       <div className="cosmic-memory__actions">
         <button
           type="button"
@@ -65,7 +76,7 @@ export function MemoryScene({ memory, onClose, onEdit, onDelete }: MemoryScenePr
         <p>
           {formatFlexibleDate(memory.date)} / {memory.place || 'sin lugar'}
         </p>
-        <h2>{memory.title}</h2>
+        <h2 id="cosmic-memory-title">{memory.title}</h2>
         <span>{memory.description}</span>
         {memory.responses.length > 0 && (
           <div className="cosmic-memory__responses">

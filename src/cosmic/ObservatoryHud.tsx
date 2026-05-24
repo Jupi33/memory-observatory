@@ -82,15 +82,19 @@ export function ObservatoryHud({
         </div>
       )}
       {newbornId && (
-        <div className="cosmic-birth-flare">
+        <div className="cosmic-birth-flare" aria-hidden="true">
           <span>Nuevo recuerdo...</span>
         </div>
       )}
       {vanishingId && (
-        <div className="cosmic-delete-flare">
+        <div className="cosmic-delete-flare" aria-hidden="true">
           <span>recuerdo eliminado</span>
         </div>
       )}
+      <div className="cosmic-live-region" role="status" aria-live="polite" aria-atomic="true">
+        {newbornId ? 'Nuevo recuerdo agregado a la constelación.' : ''}
+        {vanishingId ? 'Recuerdo eliminado de la constelación.' : ''}
+      </div>
     </>
   )
 }

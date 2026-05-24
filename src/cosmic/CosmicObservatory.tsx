@@ -8,6 +8,7 @@ import {
   type AnchorNode,
   type MemoryNode,
 } from './constellationEngine'
+import { AccessibleMemoryList } from './AccessibleMemoryList'
 import { AtlasView } from './AtlasView'
 import { LetterView } from './LetterView'
 import { MemoryScene } from './MemoryScene'
@@ -177,6 +178,7 @@ export function CosmicObservatory() {
         onViewChange={setView}
         onAddMemory={() => setEditMode(true)}
       />
+      <AccessibleMemoryList memories={visibleMemories} onOpenMemory={openMemory} />
       {view === 'trajectory' && (
         <TrajectoryView nodes={map.memories} anchors={map.anchors} onSelect={openMemory} />
       )}

@@ -1,12 +1,14 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { ImagePlus, Link2, Save, X } from 'lucide-react'
+import { useModalFocus } from '../hooks/useModalFocus'
 import { useExperienceStore } from '../store/useExperienceStore'
 import type { ChapterId, Memory, MemoryCategory, RelationshipEra } from '../types/story'
 import { FlexibleDateFields, MemoryLinkPickerDialog } from './MemoryEditorControls'
 import { memoryCategories, memoryMoods, relationshipEras, splitFlexibleDate } from './memoryEditorModel'
 
 export function MemoryEditorOverlay() {
+  const panelRef = useRef<HTMLDivElement | null>(null)
   const editMode = useExperienceStore((state) => state.editMode)
   const editingMemoryId = useExperienceStore((state) => state.editingMemoryId)
   const setEditMode = useExperienceStore((state) => state.setEditMode)
@@ -54,6 +56,9 @@ export function MemoryEditorOverlay() {
   )
   const draftDateIsValid = Boolean(splitFlexibleDate(draft.date).year)
   const isEditingExisting = Boolean(selected)
+  const closeEditor = useCallback(() => setEditMode(false), [setEditMode])
+
+  useModalFocus({ active: editMode && !linkPickerMode, containerRef: panelRef, onClose: closeEditor })
 
   useEffect(() => {
     if (!editMode) return
@@ -89,14 +94,14 @@ export function MemoryEditorOverlay() {
   }
 
   return (
-    <aside className="memory-editor" aria-label="Editor de recuerdos">
-      <div className="memory-editor__panel">
+    <aside className="memory-editor" role="dialog" aria-modal="true" aria-labelledby="memory-editor-title">
+      <div className="memory-editor__panel" ref={panelRef} tabIndex={-1}>
         <header className="memory-editor__header">
           <div>
             <p>archivo vivo</p>
-            <h2>{isEditingExisting ? 'Editar escena' : 'Agregar escena'}</h2>
+            <h2 id="memory-editor-title">{isEditingExisting ? 'Editar escena' : 'Agregar escena'}</h2>
           </div>
-          <button type="button" onClick={() => setEditMode(false)} aria-label="Cerrar editor">
+          <button type="button" onClick={closeEditor} aria-label="Cerrar editor">
             <X size={18} />
           </button>
         </header>
