@@ -8,7 +8,7 @@ export default defineConfig({
     },
     environment: 'jsdom',
     globals: true,
-    include: ['src/**/*.test.ts'],
+    include: ['src/**/*.test.ts', 'api/**/*.test.ts'],
     restoreMocks: true,
   },
 })

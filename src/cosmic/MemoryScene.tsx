@@ -6,12 +6,21 @@ import { formatFlexibleDate } from './constellationEngine'
 
 interface MemorySceneProps {
   memory: Memory
+  canEdit: boolean
   onClose: () => void
   onEdit: (memory: Memory) => void
   onDelete: (memory: Memory) => void
+  onRequestEditorAccess: (memory: Memory) => void
 }
 
-export function MemoryScene({ memory, onClose, onEdit, onDelete }: MemorySceneProps) {
+export function MemoryScene({
+  memory,
+  canEdit,
+  onClose,
+  onEdit,
+  onDelete,
+  onRequestEditorAccess,
+}: MemorySceneProps) {
   const dialogRef = useRef<HTMLElement | null>(null)
   const [readyState, setReadyState] = useState({ memoryId: '', ready: false })
   const ready = readyState.memoryId === memory.id && readyState.ready
@@ -40,24 +49,38 @@ export function MemoryScene({ memory, onClose, onEdit, onDelete }: MemoryScenePr
       tabIndex={-1}
     >
       <div className="cosmic-memory__actions">
-        <button
-          type="button"
-          className="cosmic-memory__edit"
-          onClick={() => onEdit(memory)}
-          aria-label="Editar recuerdo"
-        >
-          <Pencil size={15} />
-          <span>editar</span>
-        </button>
-        <button
-          type="button"
-          className="cosmic-memory__delete"
-          onClick={() => onDelete(memory)}
-          aria-label="Eliminar recuerdo"
-        >
-          <Trash2 size={16} />
-          <span>eliminar</span>
-        </button>
+        {canEdit ? (
+          <>
+            <button
+              type="button"
+              className="cosmic-memory__edit"
+              onClick={() => onEdit(memory)}
+              aria-label="Editar recuerdo"
+            >
+              <Pencil size={15} />
+              <span>editar</span>
+            </button>
+            <button
+              type="button"
+              className="cosmic-memory__delete"
+              onClick={() => onDelete(memory)}
+              aria-label="Eliminar recuerdo"
+            >
+              <Trash2 size={16} />
+              <span>eliminar</span>
+            </button>
+          </>
+        ) : (
+          <button
+            type="button"
+            className="cosmic-memory__edit"
+            onClick={() => onRequestEditorAccess(memory)}
+            aria-label="Desbloquear edición"
+          >
+            <Pencil size={15} />
+            <span>editar</span>
+          </button>
+        )}
         <button type="button" className="cosmic-memory__close" onClick={onClose} aria-label="Cerrar recuerdo">
           <X size={18} />
         </button>

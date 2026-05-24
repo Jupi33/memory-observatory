@@ -16,9 +16,10 @@ This roadmap documents the intended technical evolution of Memory Observatory. T
 
 ## Phase 3: Persistence And Editor Workflows
 
-- Connect memories, responses, and media uploads to Supabase.
+- Connect memories, responses, and media uploads to Supabase through Vercel API routes.
 - Keep localStorage fallback behavior for development and public static demos.
-- Support create, edit, delete, link, and response flows without exposing backend details in the UI.
+- Protect create, edit, delete, link, upload, and response flows behind a signed editor session.
+- Keep the Supabase service role key server-side and record editor audit events.
 
 ## Phase 4: Public Demo Hardening
 
@@ -32,4 +33,4 @@ This roadmap documents the intended technical evolution of Memory Observatory. T
 - Expand automated UI tests beyond the current smoke path into editor mutation, memory detail, and mobile-specific flows.
 - Add deeper mobile performance profiling for lower-end devices.
 - Add accessibility passes for keyboard flow, focus management, reduced motion, and color contrast.
-- Add a private deployment guide for Supabase-backed production environments.
+- Add a private deployment guide for applying the production Supabase schema and rotating editor keys.

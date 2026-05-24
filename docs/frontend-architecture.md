@@ -29,3 +29,7 @@ Memory Observatory is structured as a cinematic React application with a deliber
 - `npm run lighthouse` builds the app and runs Lighthouse CI against the static output.
 - Budgets live in `performance-budget.json` and are enforced in `lighthouserc.cjs`.
 - The current CI treats accessibility and resource budgets as hard gates, while Lighthouse performance score is warning-only because WebGL timing varies across runners.
+
+## Persistence Adapter Boundary
+
+The frontend talks to `mediaRepository` rather than Supabase directly. In static demo mode, that repository chooses the localStorage adapter. In Vercel production mode, `VITE_API_BASE_URL=/api` switches it to the API adapter, which sends requests with `credentials: include` so the server can validate the HttpOnly editor session cookie.

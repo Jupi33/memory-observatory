@@ -2,6 +2,21 @@
 
 This public repository is a sanitized snapshot prepared from a private/local project. It keeps the technical structure, demo behavior, and deployment workflow public while excluding private media, secrets, and personal production data.
 
+## Unreleased
+
+### Added
+
+- Added Vercel API routes for public memory reads, protected editor writes, signed media upload URLs, responses, and editor sessions.
+- Added signed HttpOnly editor cookies backed by a server-only editor secret hash.
+- Added API validation tests for editor sessions, memory payloads, uploads, and unauthenticated write rejection.
+- Added backend architecture documentation covering the GitHub Pages demo mode and Vercel/Supabase production mode.
+
+### Changed
+
+- Moved browser persistence behind localStorage and API repository adapters; the browser no longer writes directly to Supabase.
+- Updated the production Supabase schema template to enable RLS, remove public write policies, and record editor audit events.
+- Updated the keepalive route to use server-only Supabase credentials instead of public anon credentials.
+
 ## v0.1.0 Public Demo Snapshot - 2026-05-23
 
 ### Added

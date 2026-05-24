@@ -12,6 +12,7 @@ declare module 'lucide-react' {
   export const Compass: LucideIcon
   export const Heart: LucideIcon
   export const ImagePlus: LucideIcon
+  export const KeyRound: LucideIcon
   export const Link2: LucideIcon
   export const Pencil: LucideIcon
   export const Plus: LucideIcon

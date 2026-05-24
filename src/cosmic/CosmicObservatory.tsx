@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAudioDirector } from '../audio/useAudioDirector'
+import { hasApiBackend } from '../services/apiClient'
 import { useExperienceStore } from '../store/useExperienceStore'
 import type { CosmicView, Memory } from '../types/story'
 import {
@@ -25,8 +26,8 @@ export function CosmicObservatory() {
   const acknowledgeVanishing = useExperienceStore((state) => state.acknowledgeVanishing)
   const loadMemories = useExperienceStore((state) => state.loadMemories)
   const deleteMemory = useExperienceStore((state) => state.deleteMemory)
-  const setEditMode = useExperienceStore((state) => state.setEditMode)
-  const openEditorForMemory = useExperienceStore((state) => state.openEditorForMemory)
+  const editorUnlocked = useExperienceStore((state) => state.editorUnlocked)
+  const requestEditorAccess = useExperienceStore((state) => state.requestEditorAccess)
   const [view, setView] = useState<CosmicView>('atlas')
   const [selectedMemory, setSelectedMemory] = useState<Memory | null>(null)
   const [selectedAnchor, setSelectedAnchor] = useState<AnchorNode | null>(null)
@@ -131,8 +132,10 @@ export function CosmicObservatory() {
 
   const editMemory = (memory: Memory) => {
     setSelectedMemory(null)
-    openEditorForMemory(memory.id)
+    requestEditorAccess(memory.id)
   }
+
+  const canEditMemories = !hasApiBackend || editorUnlocked
 
   const currentNode = selectedMemory
     ? (map.memories.find((node) => node.id === selectedMemory.id) ?? null)
@@ -176,7 +179,7 @@ export function CosmicObservatory() {
         newbornId={newbornId}
         vanishingId={vanishingId}
         onViewChange={setView}
-        onAddMemory={() => setEditMode(true)}
+        onAddMemory={() => requestEditorAccess()}
       />
       <AccessibleMemoryList memories={visibleMemories} onOpenMemory={openMemory} />
       {view === 'trajectory' && (
@@ -186,9 +189,11 @@ export function CosmicObservatory() {
       {selectedMemory && (
         <MemoryScene
           memory={selectedMemory}
+          canEdit={canEditMemories}
           onClose={closeMemory}
           onEdit={editMemory}
           onDelete={removeMemory}
+          onRequestEditorAccess={(memory) => requestEditorAccess(memory.id)}
         />
       )}
     </section>

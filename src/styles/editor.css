@@ -450,6 +450,110 @@
   }
 }
 
+.editor-auth {
+  position: fixed;
+  inset: 0;
+  z-index: 180;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(143, 92, 255, 0.16), transparent 42%), rgba(5, 3, 6, 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.editor-auth__panel {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  width: min(440px, 100%);
+  padding: 28px;
+  border: 1px solid rgba(247, 239, 229, 0.14);
+  border-radius: 28px;
+  background:
+    linear-gradient(140deg, rgba(247, 239, 229, 0.07), rgba(143, 92, 255, 0.08)), rgba(9, 5, 12, 0.96);
+  box-shadow: 0 34px 130px rgba(0, 0, 0, 0.58);
+}
+
+.editor-auth__panel p {
+  margin: 0;
+  color: var(--wine-soft);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.editor-auth__panel h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(42px, 8vw, 64px);
+  font-weight: 400;
+  line-height: 0.9;
+}
+
+.editor-auth__panel label {
+  display: grid;
+  gap: 9px;
+  color: var(--ink-soft);
+  font-family: var(--text-serif);
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.editor-auth__panel input {
+  min-height: 48px;
+  border: 1px solid rgba(247, 239, 229, 0.14);
+  border-radius: 999px;
+  background: rgba(247, 239, 229, 0.055);
+  color: var(--ink);
+  padding: 0 16px;
+  outline: none;
+}
+
+.editor-auth__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(247, 239, 229, 0.14);
+  border-radius: 999px;
+  background: rgba(247, 239, 229, 0.05);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.editor-auth__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  border: 1px solid rgba(143, 92, 255, 0.5);
+  border-radius: 999px;
+  background: rgba(143, 92, 255, 0.18);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.editor-auth__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.editor-auth__error {
+  color: var(--wine-soft);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+
 @media (max-width: 700px) {
   .memory-editor__grid,
   .memory-editor__list,
